@@ -3,16 +3,17 @@ def calcSupervisor(n, students, b, c) :
   for student in students :
     rests = student-b;
 
-    if rests > 0 and rests < c : 
-      sum += 1;
+    if rests == 0 or rests < 0 :
+      continue;
     else : 
-      sum += ((student-b-1)//c)+1;
+      sum += ((rests-1)//c)+1;
     
-  print(sum);
+  return sum
 
 
 n = int(input())
 students = list(map(int, input().split()))
 b, c = map(int, input().split())
 
-calcSupervisor(n, students, b, c)
+sum = calcSupervisor(n, students, b, c)
+print(sum)
