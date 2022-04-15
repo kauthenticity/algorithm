@@ -1,37 +1,33 @@
 import sys
 
-n = int(input());
-stack = list(map(int, sys.stdin.readline().split()));
-temp = list();
-nge = list();
+n = int(input())
+arr = list(map(int, sys.stdin.readline().strip().split()))
 
-def getNGE() : 
-  stack.reverse(); # make array as stack
+def getNGE():
+  stack = []
+  nge = []
+  loop = len(arr)
 
-  while stack : # while stack is not empty
-    cur = stack.pop(); # get top element
+  for i in range(loop-1, -1, -1) : 
+    elem = arr.pop()
+    larger = -1
     
-    # break if top element is larger than current or stack is empty
-    while stack and cur > stack[-1] : 
-      temp.append(stack.pop());
+    while stack and stack[-1] <= elem : 
+      stack.pop()
     
-    # if temp is empty 
-    if not temp :
-      if not stack : # that means, current element is the last one
-        nge.append(-1);
-       
-      else : # top element is already larger than current one
-        nge.append(stack[-1])
+    if stack :
+      larger = stack[-1]
+    stack.append(elem)
+    
+    nge.append(larger)
 
-    else : 
-      if not stack :
-        nge.append(-1);
-      else : 
-        nge.append(stack[-1]);
-      stack.extend(list(reversed(temp)))
-      temp.clear();
+  return nge
+    
 
-getNGE();
+def printNGE(nge) : 
+  for n in nge : 
+    print(n, end=' ')
 
-for a in nge : 
-  print(a, end=' ');
+nge = getNGE()
+nge.reverse()
+printNGE(nge)
